@@ -1,0 +1,35 @@
+{
+    "name": "amoschou218/hsc-auth",
+    "description": "Authentication at HSC using LDAP and Filr.",
+    "homepage": "https://github.com/amoschou218/hsc-auth",
+    "license": "CC-BY-4.0",
+    "authors": [
+        {
+            "name": "amoschou",
+            "email": "Andrew.Moschou218@schools.sa.edu.au",
+            "role": "Developer"
+        },
+        {
+            "name": "Hamilton Secondary College",
+            "homepage": "https://www.hamcoll.sa.edu.au/",
+            "role": "Organisation"
+        },
+        {
+            "name": "Department for Education",
+            "homepage": "https://www.education.sa.gov.au/",
+            "role": "Organisation"
+        }
+    ],
+    "require": {
+        "amoschou/laravel-remote-auth": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "HamiltonSC\\Auth\\": "src/",
+            "HamiltonSC\\Auth\\App\\": "src/app/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "extra": {}
+}
