@@ -1,6 +1,6 @@
 {
     "name": "amoschou218/hsc-auth",
-    "description": "Authentication at HSC using LDAP and Filr.",
+    "description": "Authentication at HSC.",
     "homepage": "https://github.com/amoschou218/hsc-auth",
     "license": "CC-BY-4.0",
     "authors": [
