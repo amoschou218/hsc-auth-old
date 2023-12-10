@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "amoschou/laravel-remote-auth": "^1.0"
+        "amoschou/laravel-remote-auth": "^1.1"
     },
     "autoload": {
         "psr-4": {
