@@ -15,7 +15,7 @@ class Filr
 
     private function api($username, $password, $path)
     {
-        $filr = config('remote_auth.drivers.filr.connection');
+        $filr = config('remote_auth.settings.filr.connection');
 
         return Http::withBasicAuth($username, $password)->get("{$filr}{$path}");
     }
