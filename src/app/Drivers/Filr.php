@@ -16,7 +16,7 @@ class Filr extends Driver
      * 
      * @return bool
      */
-    public function attempt($username, $password): bool;
+    public function attempt($username, $password): bool
     {
         if (! $this->dnsRecordExists()) {
             return false;
@@ -35,7 +35,7 @@ class Filr extends Driver
      * 
      * @return array<string, mixed>
      */
-    protected function user($username, $password): array;
+    protected function user($username, $password): array
     {
         return (new FilrSupport)
             ->credentials($username, $password)
