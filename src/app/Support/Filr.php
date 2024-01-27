@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Http;
 
 class Filr
 {
-    public $aboutUser;
+    public $profile;
 
-    public function getAboutUser(): array
+    public function getProfile(): array
     {
-        return $this->aboutUser;
+        return $this->profile;
     }
 
     private function api($username, $password, $path)
@@ -47,7 +47,7 @@ class Filr
             $memberships[] = $group['title'];
         }
         
-        $this->aboutUser = [
+        $this->profile = [
             'username' => $user['name'],
             'id' => $user['phone'] ?? null,
             'display_name' => $user['title'],

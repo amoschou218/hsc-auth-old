@@ -39,6 +39,6 @@ class Filr extends Driver
     {
         return (new FilrSupport)
             ->credentials($username, $password)
-            ->getAboutUser();
+            ->getProfile();
     }
 }
