@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "amoschou/laravel-remote-auth": "^1.1"
+        "amoschou/laravel-remote-auth": "dev-main"
     },
     "autoload": {
         "psr-4": {
@@ -29,7 +29,7 @@
             "HamiltonSC\\Auth\\App\\": "src/app/"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "extra": {}
 }
