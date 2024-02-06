@@ -18,7 +18,7 @@ class Filr extends BaseDriver
      */
     public function attempt($username, $password): bool
     {
-        return $this->support()->credentials($username, $password, true);
+        return $this->support()->attempt($username, $password);
     }
 
     /**

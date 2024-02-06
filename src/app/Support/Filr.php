@@ -9,39 +9,61 @@ class Filr
 {
     use ReadsConfig;
 
-    public $profile;
+    /**
+     * The key that is used to identify the provider in the config file.
+     *
+     * @var string
+     */
+    private $key;
 
-    public function getProfile(): array
+    /**
+     * The support data that the driver requires.
+     *
+     * @var array<string, mixed>
+     */
+    private $data = [];
+
+    /**
+     * Create a new Filr support instance.
+     *
+     * @param  string  $key
+     * @return void
+     */
+    public function __construct($key)
     {
-        return $this->profile;
+        $this->key = $key;
     }
 
-    private function api($username, $password, $path)
+    /**
+     * Create a new Filr support instance using a static interface.
+     *
+     * @param  string  $key
+     * @return AMoschou\RemoteAuth\App\Support\Filr
+     */
+    public static function for($key)
     {
-        $connection = $this->config('connection');
-
-        return Http::withBasicAuth($username, $password)->get("{$connection}{$path}");
+        return new Filr($key);
     }
 
-    public function credentials($username, $password, $returnAfterAuth = false)
+    /**
+     * Return whether the given credentials are valid on the Filr server.
+     */
+    public function attempt($username, $password)
     {
-        $self = $this->api($username, $password, '/self');
+        return $this->api($username, $password, '/self')->successful();
+    }
 
-        if ($returnAfterAuth) {
-            return $self->successful();
-        }
-
-        $id = $self['id'];
+    /**
+     * Return the profile of the user with the given credentials.
+     */
+    public function profile($username, $password)
+    {
+        $id = $this->api($username, $password, '/self')['id'];
 
         $user = $this->api($username, $password, "/users/{$id}");
 
         $groups = $this->api($username, $password, "/users/{$id}/groups")['items'];
 
-        return $this->credentialsMore($user, $groups);
-    }
-
-    private function credentialsMore($user, $groups)
-    {
         $accountName = $user['name'];
 
         $memberships = [];
@@ -58,8 +80,13 @@ class Filr
 
         $profile['groups'] = $memberships;
 
-        $this->profile = $profile;
+        return $profile;
+    }
 
-        return $this;
+    private function api($username, $password, $path)
+    {
+        $connection = $this->config('connection');
+
+        return Http::withBasicAuth($username, $password)->get("{$connection}{$path}");
     }
 }
