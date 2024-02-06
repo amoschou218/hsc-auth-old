@@ -58,6 +58,10 @@ class Filr
      */
     public function profile($username, $password)
     {
+        if (! $this->attempt($username, $password)) {
+            return null;
+        }
+
         $id = $this->api($username, $password, '/self')['id'];
 
         $user = $this->api($username, $password, "/users/{$id}");
