@@ -32,7 +32,7 @@ class Filr extends BaseDriver
      */
     public function profile($username, $password = null): array
     {
-        return $this->support()->credentials($username, $password)->getProfile();
+        return $this->support()->profile($username, $password);
     }
 
     /**
