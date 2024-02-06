@@ -29,7 +29,7 @@
             "HamiltonSC\\Auth\\App\\": "src/app/"
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "extra": {}
 }
