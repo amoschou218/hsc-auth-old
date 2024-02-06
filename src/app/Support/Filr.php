@@ -2,10 +2,13 @@
 
 namespace HamiltonSC\Auth\App\Support;
 
+use AMoschou\RemoteAuth\App\Support\ReadsConfig;
 use Illuminate\Support\Facades\Http;
 
 class Filr
 {
+    use ReadsConfig;
+
     public $profile;
 
     public function getProfile(): array
@@ -15,9 +18,9 @@ class Filr
 
     private function api($username, $password, $path)
     {
-        $filr = config('remote_auth.settings.filr.connection');
+        $connection = $this->config('connection');
 
-        return Http::withBasicAuth($username, $password)->get("{$filr}{$path}");
+        return Http::withBasicAuth($username, $password)->get("{$connection}{$path}");
     }
 
     public function credentials($username, $password, $returnAfterAuth = false)
@@ -37,7 +40,7 @@ class Filr
         return $this->credentialsMore($user, $groups);
     }
 
-    public function credentialsMore($user, $groups)
+    private function credentialsMore($user, $groups)
     {
         $accountName = $user['name'];
 
@@ -46,22 +49,17 @@ class Filr
         foreach ($groups as $group) {
             $memberships[] = $group['title'];
         }
-        
-        $this->profile = [
-            'username' => $user['name'],
-            'id' => $user['phone'] ?? null,
-            'display_name' => $user['title'],
-            'email' => $user['email'] ?? null,
-            'last_name' => $user['last_name'],
-            'first_name' => $user['first_name'],
-            'groups' => $memberships,
-        ];
+
+        $profile = [];
+
+        foreach ($this->config('profile_map') as $profilekey => $filrkey) {
+            $profile[$profilekey] = $user[$filrkey];
+        }
+
+        $profile['groups'] = $memberships;
+
+        $this->profile = $profile;
 
         return $this;
     }
-
-    // $user['id']
-    // $user['href']
-    // $user['disabled']
-    // $user['middle_name']
 }

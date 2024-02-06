@@ -2,10 +2,10 @@
 
 namespace HamiltonSC\Auth\App\Drivers;
 
-use AMoschou\RemoteAuth\App\Drivers\Driver;
-use HamiltonSC\Auth\App\Support\Filr as FilrSupport;
+use AMoschou\RemoteAuth\App\Drivers\BaseDriver;
+use HamiltonSC\Auth\App\Support\Filr as Support;
 
-class Filr extends Driver
+class Filr extends BaseDriver
 {
     /**
      * Determine whether the username and password can authenticate against
@@ -18,12 +18,7 @@ class Filr extends Driver
      */
     public function attempt($username, $password): bool
     {
-        if (! $this->dnsRecordExists()) {
-            return false;
-        }
-
-        return (new FilrSupport)
-            ->credentials($username, $password, true);
+        return $this->support()->credentials($username, $password, true);
     }
 
     /**
@@ -35,10 +30,16 @@ class Filr extends Driver
      * 
      * @return array<string, mixed>
      */
-    protected function user($username, $password): array
+    protected function profile($username, $password = null): array
     {
-        return (new FilrSupport)
-            ->credentials($username, $password)
-            ->getProfile();
+        return $this->support()->credentials($username, $password)->getProfile();
+    }
+
+    /**
+     * Provide helper functions to the driver.
+     */
+    private function support()
+    {
+        return Support::for($this->key);
     }
 }
