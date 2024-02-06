@@ -68,8 +68,6 @@ class Filr
 
         $groups = $this->api($username, $password, "/users/{$id}/groups")['items'];
 
-        $accountName = $user['name'];
-
         $memberships = [];
 
         foreach ($groups as $group) {

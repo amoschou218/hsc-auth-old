@@ -30,7 +30,7 @@ class Filr extends BaseDriver
      * 
      * @return array<string, mixed>
      */
-    protected function profile($username, $password = null): array
+    public function profile($username, $password = null): array
     {
         return $this->support()->credentials($username, $password)->getProfile();
     }
