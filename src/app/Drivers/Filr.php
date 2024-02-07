@@ -8,15 +8,10 @@ use HamiltonSC\Auth\App\Support\Filr as Support;
 class Filr extends BaseDriver
 {
     /**
-     * Determine whether the username and password can authenticate against
+     * Determine whether the given username and password can authenticate using
      * this driver.
-     * 
-     * @param  string  $username
-     * @param  string  $password
-     * 
-     * @return bool
      */
-    public function attempt($username, $password): bool
+    public function attempt(string $username, string $password): bool
     {
         return $this->support()->attempt($username, $password);
     }
