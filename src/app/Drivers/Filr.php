@@ -19,13 +19,8 @@ class Filr extends BaseDriver
     /**
      * Get a newly synced set of details about the user for the given username
      * and password.
-     * 
-     * @param  string  $username
-     * @param  string|null  $password
-     * 
-     * @return array<string, mixed>
      */
-    public function profile($username, $password = null): array
+    public function profile(string $username, ?string $password = null): array
     {
         return $this->support()->profile($username, $password);
     }
