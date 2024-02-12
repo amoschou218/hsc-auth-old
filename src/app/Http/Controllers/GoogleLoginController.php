@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Support\Login as LoginSupport;
 
-class LoginController extends BaseLoginController
+class GoogleLoginController extends BaseLoginController
 {
     protected function authenticated(Request $request): RedirectResponse
     {
