@@ -20,9 +20,7 @@ class ServiceProvider extends BaseServiceProvider
     */
     public function boot(): void
     {
-        Route::prefix(config('remote_auth.route_prefix'))->name('remote_auth.')->middleware('web')->group(function () {
-            $this->loadRoutesFrom($this->path('routes/auth.php'));
-        });
+        $this->loadRoutesFrom($this->path('routes/auth.php'));
     }
 
     private function path($path): string
