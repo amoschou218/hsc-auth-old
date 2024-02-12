@@ -6,15 +6,15 @@ use Illuminate\Support\Facades\Auth;
 
 $google = config('remote_auth.socialite.google', false);
 
-Route::prefix('auth')->name('remote_auth.')->middleware('web')->group(function () use ($google) {
+Route::prefix('auth')->middleware('web')->group(function () use ($google) {
 
     Route::middleware('guest')->group(function () use ($google) {
         Route::get('login', function () { return view('vendor.laravel-remote-auth.login'); })->name('login');
 
         if ($google) {
-            Route::post('login', [GoogleLoginController::class, 'authenticate'])->name('login.post');
+            Route::post('login', [GoogleLoginController::class, 'authenticate']);
         } else {
-            Route::post('login', [LoginController::class, 'authenticate'])->name('login.post');
+            Route::post('login', [LoginController::class, 'authenticate']);
         }
     });
 
