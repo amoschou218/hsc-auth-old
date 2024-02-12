@@ -6,8 +6,14 @@ use AMoschou\RemoteAuth\App\Models\User as RemoteAuthUser;
 
 class User extends RemoteAuthUser
 {
-    public $roles = [
-        'student' => 'UG_Students',
-        'teacher' => 'UG_Staff_Teachers',
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'password' => 'hashed',
+        'profile' => 'array',
+        'socialite' => 'array',
     ];
 }
