@@ -31,5 +31,11 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "extra": {}
+    "extra": {
+        "laravel": {
+            "providers": [
+                "HamiltonSC\\Auth\\App\\Providers\\ServiceProvider"
+            ]
+        }
+    }
 }
