@@ -12,9 +12,9 @@ Route::prefix('auth')->middleware('web')->group(function () use ($google) {
         Route::get('login', function () { return view('vendor.laravel-remote-auth.login'); })->name('login');
 
         if ($google) {
-            Route::post('login', [GoogleLoginController::class, 'authenticate']);
+            Route::post('login', [GoogleLoginController::class, 'authenticate'])->name('login.post');
         } else {
-            Route::post('login', [LoginController::class, 'authenticate']);
+            Route::post('login', [LoginController::class, 'authenticate'])->name('login.post');
         }
     });
 
