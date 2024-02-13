@@ -2,9 +2,9 @@
 
 namespace HamiltonSC\Auth\App\Models;
 
-use AMoschou\RemoteAuth\App\Models\User as RemoteAuthUser;
+use AMoschou\RemoteAuth\App\Models\User as BaseUser;
 
-class User extends RemoteAuthUser
+class User extends BaseUser
 {
     /**
      * The attributes that should be cast.
