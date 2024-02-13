@@ -17,7 +17,6 @@ class GoogleLoginController extends BaseLoginController
         $with = [
             'access_type' => 'offline',
             'include_granted_scopes' => 'true',
-            'response_type' => 'code'
         ];
 
         if (! is_null(config('services.google.login_hint'))) {
