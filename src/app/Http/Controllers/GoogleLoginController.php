@@ -30,20 +30,32 @@ class GoogleLoginController extends BaseLoginController
 
         $scopes = config('services.google.scopes') ?? [];
 
-        return Socialite::driver('google')->with($with)->scopes($scopes)->redirect();
+        $hasGoogleEmail = ! is_null(Auth::user()->getProfile()['email']);
+
+        if ($hasGoogleEmail) {
+            return Socialite::driver('google')->with($with)->scopes($scopes)->redirect();
+        } else {
+            return $this->calledback($request);
+        }
     }
 
     public function callback(Request $request): RedirectResponse
     {
-        $intended = $request->session()->get('intended');
-        $request->session()->forget('intended');
-
         $user = Auth::user();
         $socialite = $user->socialite;
         $socialite['google'] = Socialite::driver('google')->user();
         $user->socialite = $socialite;
         $user->save();
 
-        return redirect()->intended($intended);    
+        return $this->calledback($request);
+    }
+
+    private function calledback(Request $request): RedirectResponse
+    {
+        $intended = $request->session()->get('intended');
+
+        $request->session()->forget('intended');
+
+        return redirect()->intended($intended);
     }
 }
