@@ -49,13 +49,4 @@ class GoogleLoginController extends BaseLoginController
 
         return $this->calledback($request);
     }
-
-    private function calledback(Request $request): RedirectResponse
-    {
-        $intended = $request->session()->get('intended');
-
-        $request->session()->forget('intended');
-
-        return redirect()->intended($intended);
-    }
 }
