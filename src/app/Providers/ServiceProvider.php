@@ -2,6 +2,7 @@
 
 namespace HamiltonSC\Auth\App\Providers;
 
+use AMoschou\RemoteAuth\RemoteAuth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
@@ -12,7 +13,7 @@ class ServiceProvider extends BaseServiceProvider
     */
     public function register(): void
     {
-        //
+        RemoteAuth::ignoreRoutes();
     }
 
     /**
