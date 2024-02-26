@@ -21,7 +21,7 @@ class ServiceProvider extends BaseServiceProvider
     */
     public function boot(): void
     {
-        $this->loadRoutesFrom($this->path('routes/auth.php'));
+        $this->loadRoutesFrom($this->path('routes/web.php'));
     }
 
     private function path($path): string
