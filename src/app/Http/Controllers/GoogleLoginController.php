@@ -20,7 +20,7 @@ class GoogleLoginController extends BaseLoginController
         ];
 
         if (! is_null(config('services.google.login_hint'))) {
-            $with['login_hint'] = Auth::user()->getProfile()['email'];
+            $with['login_hint'] = Auth::user()->record()['profile']['email'];
         }
 
         if (! is_null(config('services.google.hd'))) {
@@ -29,7 +29,7 @@ class GoogleLoginController extends BaseLoginController
 
         $scopes = config('services.google.scopes') ?? [];
 
-        $hasGoogleEmail = ! is_null(Auth::user()->getProfile()['email']);
+        $hasGoogleEmail = ! is_null(Auth::user()->record()['profile']['email']);
 
         if ($hasGoogleEmail) {
             return Socialite::driver('google')->with($with)->scopes($scopes)->redirect();

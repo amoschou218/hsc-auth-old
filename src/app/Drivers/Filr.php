@@ -11,18 +11,23 @@ class Filr extends BaseDriver
      * Determine whether the given username and password can authenticate using
      * this driver.
      */
-    public function attempt(string $username, string $password): bool
+    public function validate(string $username, string $password): bool
     {
-        return $this->support()->attempt($username, $password);
+        return $this->support()->validate($username, $password);
     }
 
     /**
      * Get a newly synced set of details about the user for the given username
      * and password.
      */
-    public function profile(string $username, ?string $password = null): array
+    // public function profile(string $username, ?string $password = null): array
+    // {
+    //     return $this->support()->profile($username, $password);
+    // }
+
+    public function record(string $username, string $password): ?stdClass
     {
-        return $this->support()->profile($username, $password);
+        return $this->support()->record($username, $password);
     }
 
     /**

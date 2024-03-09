@@ -11,3 +11,27 @@ Install the package using Composer:
 composer require amoschou218/hsc-auth
 ```
 
+## Config
+
+Include a provider with the Filr driver in the `config/remote_auth.php`:
+
+```php
+'hsc-filr' => \HamiltonSC\Auth\App\Drivers\Filr::class
+```
+
+The settings go like:
+```php
+'hsc-filr' => [
+    'connection' => 'https://filr.example.com:8443/rest'
+    'profile_map' => [
+        'username' => 'name',
+        'first_name' => 'first_name',
+        'last_name' => 'last_name',
+        'display_name' => 'title',
+        'id' => 'phone',
+        'email' => 'email',
+    ],
+],
+```
+
+There is no need for a `groups` key in the `profile_map`, as groups are applied anyway.

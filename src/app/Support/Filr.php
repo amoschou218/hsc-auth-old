@@ -48,7 +48,7 @@ class Filr
     /**
      * Return whether the given credentials are valid on the Filr server.
      */
-    public function attempt($username, $password)
+    public function validate($username, $password)
     {
         return $this->api($username, $password, '/self')->successful();
     }
@@ -56,9 +56,9 @@ class Filr
     /**
      * Return the profile of the user with the given credentials.
      */
-    public function profile($username, $password)
+    private function profile($username, $password)
     {
-        if (! $this->attempt($username, $password)) {
+        if (! $this->validate($username, $password)) {
             return null;
         }
 
@@ -83,6 +83,17 @@ class Filr
         $profile['groups'] = $memberships;
 
         return $profile;
+    }
+
+    public function record($username, $password)
+    {
+        $profile = $this->profile($username, $password);
+
+        return (object) [
+            'username' => $username,
+            'email' => $profile['email'],
+            'profile' => $profile,
+        ]
     }
 
     private function api($username, $password, $path)
