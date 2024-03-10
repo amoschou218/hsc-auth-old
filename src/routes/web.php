@@ -20,7 +20,7 @@ Route::prefix('auth')->middleware($web)->group(function () use ($google) {
 
     Route::middleware(SoftGuest::class)->group(function () use ($google) {
 
-        Route::get('login', fn () => return view('remote-auth::login'))->name('login');
+        Route::get('login', fn () => view('remote-auth::login'))->name('login');
 
         Route::post('login', [$google ? GoogleLoginController::class : LoginController::class, 'authenticate'])->name('login.post');
 
