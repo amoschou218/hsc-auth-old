@@ -1,8 +1,8 @@
 <?php
 
 use AMoschou\RemoteAuth\App\Http\Controllers\LoginController;
-use AMoschou\RemoteAuth\App\Http\Middleware\Authenticate as AuthMiddleware;
-use AMoschou\RemoteAuth\App\Http\Middleware\RedirectIfAuthenticated as GuestMiddleware;
+use AMoschou\RemoteAuth\App\Http\Middleware\Authenticate as Auth;
+use AMoschou\RemoteAuth\App\Http\Middleware\RedirectIfAuthenticated as SoftGuest;
 use HamiltonSC\Auth\App\Http\Controllers\GoogleLoginController;
 
 $google = config('remote_auth.socialite.google', false);
@@ -18,24 +18,22 @@ $web = [
 
 Route::prefix('auth')->middleware($web)->group(function () use ($google) {
 
-    Route::middleware(GuestMiddleware::class)->group(function () use ($google) {
-        Route::get('login', function () {
-            return view('remote-auth::login');
-        })->name('login');
+    Route::middleware(SoftGuest::class)->group(function () use ($google) {
 
-        if ($google) {
-            Route::post('login', [GoogleLoginController::class, 'authenticate'])->name('login.post');
-        } else {
-            Route::post('login', [LoginController::class, 'authenticate'])->name('login.post');
-        }
+        Route::get('login', fn () => return view('remote-auth::login'))->name('login');
+
+        Route::post('login', [$google ? GoogleLoginController::class : LoginController::class, 'authenticate'])->name('login.post');
+
     });
 
-    Route::middleware(AuthMiddleware::class)->group(function () use ($google) {
+    Route::middleware(Auth::class)->group(function () use ($google) {
+
         if ($google) {
             Route::get('/callback', [GoogleLoginController::class, 'callback'])->name('google.callback');
         }
 
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
     });
 
 });
