@@ -4,6 +4,7 @@ namespace HamiltonSC\Auth\App\Drivers;
 
 use AMoschou\RemoteAuth\App\Drivers\BaseDriver;
 use HamiltonSC\Auth\App\Support\Filr as Support;
+use stdClass;
 
 class Filr extends BaseDriver
 {
