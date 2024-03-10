@@ -35,3 +35,10 @@ The settings go like:
 ```
 
 There is no need for a `groups` key in the `profile_map`, as groups are applied anyway.
+
+## Socialite
+
+If the setting `remote_auth.socialite.google` is `true`, then you will need to configure Socialite. See https://laravel.com/docs/10.x/socialite.
+
+If this setting is not present, by default it will be considered `false`.
+
