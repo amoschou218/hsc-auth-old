@@ -93,7 +93,7 @@ class Filr
             'username' => $username,
             'email' => $profile['email'],
             'profile' => $profile,
-        ]
+        ];
     }
 
     private function api($username, $password, $path)
