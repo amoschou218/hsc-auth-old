@@ -36,6 +36,6 @@ class Filr extends BaseDriver
      */
     private function support()
     {
-        return Support::for($this->key);
+        return Support::for($this->getKey());
     }
 }
